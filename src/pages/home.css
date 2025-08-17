@@ -1,0 +1,50 @@
+body {
+  margin: 0px;
+  padding: 50px;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+p {
+  color: white;
+  text-align: center;
+}
+.cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.botao2 {
+  background-color: #d8c6bb;
+  border-radius: 5px;
+  border: none;
+  margin-top: 150px;
+  width: 100px;
+  height: 50px;
+}
+.botao2:active {
+  background-color: rgb(173, 36, 65);
+  border-style: solid;
+  border-color: rgb(107, 15, 23);
+}
+#upgrade {
+  padding: 10px 20px;
+  background: red;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+}
+#mensagem-upgrade{
+  font-size: large;
+  color: rgb(107, 23, 23);
+  font-weight: bolder;
+}
