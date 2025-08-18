@@ -17,7 +17,7 @@
     <button id="botao2" class="botao2">Click</button>
     <h2 id="contador">Moggadas: 0</h2>
 
-    <button id="upgrade" style="display:none;">2X</button>
+    <button id="upgrade" style="display:none;"></button>
     <div class="divbemmoggada">
         <p id="mensagem-upgrade" style="display:none;">Upgrade Ativado!</p>
     </div>
@@ -28,7 +28,7 @@
         const mensagemUpgrade = document.getElementById('mensagem-upgrade');
 
         let contador = 0;
-        let multiplicador = 1;
+        let multiplicador = 0.5;
 
         const corOriginal = "black";
         const gifFundo = "url('../public/CavernosoMoggado.gif')";
@@ -38,8 +38,46 @@
             contadorEl.textContent = `Moggadas: ${contador}`;
 
             if (contador == 10 && upgradeBtn.style.display === "none") {
+                tanto = 1;
+                upgradeBtn.textContent = `${tanto}X`;
                 upgradeBtn.style.display = "block";
             }
+            if (contador == 100 && upgradeBtn.style.display === "none") {
+                tanto = 2;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 200 && upgradeBtn.style.display === "none") {
+                tanto = 4;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 500 && upgradeBtn.style.display === "none") {
+                tanto = 6;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 2000 && upgradeBtn.style.display === "none") {
+                tanto = 10;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 5000 && upgradeBtn.style.display === "none") {
+                tanto = 100;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 10000 && upgradeBtn.style.display === "none") {
+                tanto = 500;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+            if (contador == 10000000000 && upgradeBtn.style.display === "none") {
+                tanto = 199876543210987654321;
+                upgradeBtn.textContent = `${tanto}X`;
+                upgradeBtn.style.display = "block";
+            }
+
 
             document.body.style.backgroundImage = gifFundo;
             document.body.style.backgroundSiWze = "cover";
@@ -53,7 +91,7 @@
         });
 
         upgradeBtn.addEventListener('click', () => {
-            multiplicador = 2;
+            multiplicador = tanto;
             upgradeBtn.style.display = "none";
             mensagemUpgrade.style.display = "block";
         });
