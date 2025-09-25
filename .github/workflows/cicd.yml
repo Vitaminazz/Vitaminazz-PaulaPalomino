@@ -41,13 +41,6 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
-          
-      - name: Notify Sleuth
-      if: ${{ success() && steps.deploy.outcome == 'success' }}
-      uses: sleuth-io/sleuth-action@v1
-      with:
-        api_key: ${{ secrets.SLEUTH_API_KEY }}
-        environment: production
 
       - name: Mandar notificação do resultado
         if: always()
