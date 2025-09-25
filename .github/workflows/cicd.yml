@@ -36,11 +36,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy para GitHub Pages
+        id: deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
+
+      - name: Notify Sleuth
+        if: ${{ success() && steps.deploy.outcome == 'success' }}
+        uses: sleuth-io/sleuth-action@main
+        with:
+          api-key: ${{ secrets.SLEUTH_API_KEY }}
+          organization-slug: vitamina
+          deployment-slug: vitaminazz-paulapalomino-2
+          environment: production
+
 
       - name: Mandar notificação do resultado
         if: always()
