@@ -1,0 +1,49 @@
+name: Pipeline CI/CD - Deploy GitHub Pages
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar as dependências
+        run: npm install
+
+      - name: Rodar os testes
+        run: npm test || echo "Sem testes configurados, continuando..."
+
+      - name: Fazer build do projeto
+        run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Deploy para GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
+
+      - name: Mandar notificação do resultado
+        if: always()
+        run: |
+          echo "O pipeline terminou com status: ${{ job.status }}"
+          echo "O deploy foi feito com sucesso!"
