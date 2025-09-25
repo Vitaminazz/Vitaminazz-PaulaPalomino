@@ -43,7 +43,7 @@ jobs:
       name: github-pages
     
     steps:
-    - name: Fazer deploy no GitHub Pages
+    - name: Fazer deploy no GitHub 
       id: deployment
       uses: actions/deploy-pages@v4
 
