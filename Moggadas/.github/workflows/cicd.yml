@@ -1,7 +1,7 @@
 name: Pipeline CI/CD - Deploy GitHub Pages
 
 on:
-  push:
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
