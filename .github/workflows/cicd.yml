@@ -47,3 +47,10 @@ jobs:
         run: |
           echo "O pipeline terminou com status: ${{ job.status }}"
           echo "O deploy foi feito com sucesso!"
+          
+      - name: Notify Sleuth
+      if: ${{ success() && steps.deploy.outcome == 'success' }}
+      uses: sleuth-io/sleuth-action@v1
+      with:
+        api_key: ${{ secrets.SLEUTH_API_KEY }}
+        environment: production
