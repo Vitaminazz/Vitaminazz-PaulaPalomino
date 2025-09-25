@@ -41,12 +41,6 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
-
-      - name: Mandar notificação do resultado
-        if: always()
-        run: |
-          echo "O pipeline terminou com status: ${{ job.status }}"
-          echo "O deploy foi feito com sucesso!"
           
       - name: Notify Sleuth
       if: ${{ success() && steps.deploy.outcome == 'success' }}
@@ -54,3 +48,10 @@ jobs:
       with:
         api_key: ${{ secrets.SLEUTH_API_KEY }}
         environment: production
+
+      - name: Mandar notificação do resultado
+        if: always()
+        run: |
+          echo "O pipeline terminou com status: ${{ job.status }}"
+          echo "O deploy foi feito com sucesso!"
+          
