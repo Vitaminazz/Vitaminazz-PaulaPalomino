@@ -1,54 +1,48 @@
 name: Pipeline CI/CD - Deploy GitHub Pages
 
 on:
-  pull_request:
-    branches: main
+  push:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Baixar código do repositório
-      uses: actions/checkout@v4
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
 
-    - name: Configurar Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Instalar as dependências
-      run: npm install
+      - name: Instalar as dependências
+        run: npm install
 
-    - name: Rodar os testes (se tiver)
-      run: npm test || echo "Sem testes configurados, continuando..."
+      - name: Rodar os testes
+        run: npm test || echo "Sem testes configurados, continuando..."
 
-    - name: Fazer build do projeto
-      run: npm run build
-
-    - name: Preparar arquivos para deploy
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./dist
+      - name: Fazer build do projeto
+        run: npm run build
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-    
     steps:
-    - name: Fazer deploy no GitHub 
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
 
-    - name: Mandar notificação do resultado
-      if: always()
-      run: |
-        echo "O pipeline terminou com status: ${{ job.status }}"
-        echo "URL do deploy: ${{ steps.deployment.outputs.page_url }}"
+      - name: Deploy para GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+      - name: Mandar notificação do resultado
+        if: always()
+        run: |
+          echo "O pipeline terminou com status: ${{ job.status }}"
+          echo "O deploy foi feito com sucesso!"
