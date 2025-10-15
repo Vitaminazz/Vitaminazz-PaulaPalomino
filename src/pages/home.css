@@ -7,6 +7,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+.divprincipal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 h1,
 h2,
